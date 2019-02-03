@@ -1,11 +1,14 @@
 package com.beefyboys.menuman.models;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class MenuItem {
 
-    private Long id;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Integer id;
 
     @NotNull
     @NotEmpty
@@ -18,11 +21,11 @@ public class MenuItem {
     @NotNull
     private Double price;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

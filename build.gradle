@@ -1,16 +1,5 @@
-buildscript {
-	ext {
-		springBootVersion = '2.1.2.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
-}
-
 apply plugin: 'java'
+apply plugin: 'nu.studer.jooq'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
@@ -18,13 +7,79 @@ group = 'com.beefyboys'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
+buildscript {
+	ext {
+		springBootVersion = '2.1.2.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+		maven {
+			url 'https://plugins.gradle.org/m2/'
+		}
+	}
+	dependencies {
+		classpath 'nu.studer:gradle-jooq-plugin:3.0.2'
+		classpath "gradle.plugin.com.boxfuse.client:gradle-plugin-publishing:5.2.4"
+		classpath 'org.flywaydb:flyway-core:5.2.4'
+		classpath 'com.h2database:h2:1.4.197'
+		classpath 'org.jooq:jooq-codegen:3.11.9'
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath 'org.yaml:snakeyaml:1.16'
+	}
+}
+
 repositories {
 	mavenCentral()
 }
 
 dependencies {
+	compile 'org.jooq:jooq'
+	jooqRuntime  'com.h2database:h2:1.4.197'
+	runtime  'com.h2database:h2:1.4.197'
 	implementation 'org.springframework.boot:spring-boot-starter-jooq'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
 }
+
+jooq {
+	menuman(sourceSets.main) {
+		jdbc {
+			driver = 'org.h2.Driver'
+			url = 'jdbc:h2:~/menuman'
+			user = 'sa'
+			password = ''
+		}
+		generator {
+			database {
+				inputSchema = 'menuman'
+				outputSchema = 'menuman'
+			}
+			generate {
+				daos = true
+			}
+			target {
+				packageName = 'org.jooq.code'
+				directory = 'src/generated/java'
+			}
+		}
+	}
+}
+
+apply plugin: "org.flywaydb.flyway"
+
+
+flyway {
+	url = 'jdbc:h2:~/menuman'
+	user = 'sa'
+	password = ''
+	schemas = ['menuman']
+	locations = ["filesystem:$project.projectDir/src/main/resources/db/migration"]
+}
+
+sourceSets {
+	sourceSets.main.java.srcDirs = ['src/main/java', 'src/generated/java']
+}
+
+compileJava.dependsOn generateMenumanJooqSchemaSource
+
