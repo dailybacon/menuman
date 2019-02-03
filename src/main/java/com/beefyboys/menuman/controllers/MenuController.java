@@ -38,9 +38,7 @@ public class MenuController {
 
     @PostMapping("/section")
     public List<Section> addSection(@RequestBody @Valid Section section){
-
         return Arrays.asList(section);
     }
-
 
 }

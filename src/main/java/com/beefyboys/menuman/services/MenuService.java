@@ -1,17 +1,11 @@
 package com.beefyboys.menuman.services;
 
 import com.beefyboys.menuman.models.Menu;
-import com.beefyboys.menuman.models.Section;
 import com.beefyboys.menuman.repository.MenuDataStore;
-import org.jooq.DSLContext;
-import org.jooq.impl.DSL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
-import static org.jooq.code.tables.Menu.MENU;
-
 
 @Service
 public class MenuService {
