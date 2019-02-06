@@ -1,6 +1,8 @@
 package com.beefyboys.menuman.services;
 
 import com.beefyboys.menuman.models.Menu;
+import com.beefyboys.menuman.models.MenuItem;
+import com.beefyboys.menuman.models.Section;
 import com.beefyboys.menuman.repository.MenuDataStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +15,7 @@ public class MenuService {
     @Autowired
     MenuDataStore repo;
 
-    public boolean addMenu(Menu menu) {
+    public Menu addMenu(Menu menu) {
         return repo.addMenu(menu);
     }
 
@@ -21,12 +23,56 @@ public class MenuService {
         return repo.getAllMenus();
     }
 
-    public Menu getMenu(Integer menuId) {
+    public Menu getMenu(int menuId) {
         return repo.getMenu(menuId);
     }
 
-    public boolean deleteMenu(Integer menuId) {
+    public Menu getFullMenu(int menuId) {
+        return repo.getFullMenu(menuId);
+    }
+
+    public boolean deleteMenu(int menuId) {
         return repo.deleteMenu(menuId);
+    }
+
+    public Section addSection(Section section) {
+        return repo.addSection(section);
+    }
+
+    public List<Section> getAllSections() {
+        return repo.getAllSections();
+    }
+
+    public Section getSection(int sectionId) {
+        return repo.getSection(sectionId);
+    }
+
+    public boolean deleteSection(int sectionId) {
+        return repo.deleteSection(sectionId);
+    }
+
+    public MenuItem addMenuItem(MenuItem menuItem) {
+        return repo.addMenuItem(menuItem);
+    }
+
+    public List<MenuItem> getAllMenuItems() {
+        return repo.getAllMenuItems();
+    }
+
+    public MenuItem getMenuItem(int menuItemId) {
+        return repo.getMenuItem(menuItemId);
+    }
+
+    public boolean deleteMenuItem(int menuItemId) {
+        return repo.deleteMenuItem(menuItemId);
+    }
+
+    public boolean addMenuSection(int menuId, Section section) {
+        return repo.addMenuSection(menuId, section);
+    }
+
+    public boolean addMenuSectionMenuItem(int sectionId, MenuItem menuItem) {
+        return repo.addMenuSectionMenuItem(sectionId, menuItem);
     }
 
 }

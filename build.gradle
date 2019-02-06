@@ -68,7 +68,6 @@ jooq {
 
 apply plugin: "org.flywaydb.flyway"
 
-
 flyway {
 	url = 'jdbc:h2:~/menuman'
 	user = 'sa'
@@ -82,4 +81,3 @@ sourceSets {
 }
 
 compileJava.dependsOn generateMenumanJooqSchemaSource
-
