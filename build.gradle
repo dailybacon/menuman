@@ -18,7 +18,7 @@ buildscript {
 		}
 	}
 	dependencies {
-		classpath 'nu.studer:gradle-jooq-plugin:3.0.2'
+		classpath 'nu.studer:gradle-jooq-plugin:3.0.3'
 		classpath "gradle.plugin.com.boxfuse.client:gradle-plugin-publishing:5.2.4"
 		classpath 'org.flywaydb:flyway-core:5.2.4'
 		classpath 'com.h2database:h2:1.4.197'
@@ -40,6 +40,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
+	testImplementation 'org.mockito:mockito-core:2.1.0'
 }
 
 jooq {

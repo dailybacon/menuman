@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 public class MenuItem {
 
@@ -19,7 +20,7 @@ public class MenuItem {
     private String description;
 
     @NotNull
-    private Double price;
+    private BigDecimal cost;
 
     public Integer getId() {
         return id;
@@ -45,12 +46,12 @@ public class MenuItem {
         this.description = description;
     }
 
-    public Double getPrice() {
-        return price;
+    public BigDecimal getCost() {
+        return cost;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setCost(BigDecimal cost) {
+        this.cost = cost;
     }
 
 }

@@ -7,21 +7,17 @@ CREATE TABLE menu (
 
 CREATE TABLE section (
     id INT NOT NULL AUTO_INCREMENT,
-    menu_id INT NOT NULL,
     name VARCHAR(50) NOT NULL,
     description VARCHAR(500) NOT NULL,
-    PRIMARY KEY (id),
-    FOREIGN KEY (menu_id) REFERENCES menu(id)
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE menu_item (
     id INT NOT NULL AUTO_INCREMENT,
-    section_id INT NOT NULL,
     name VARCHAR(50) NOT NULL,
     description VARCHAR(500) NOT NULL,
     cost DECIMAL(10, 2) NOT NULL,
-    PRIMARY KEY (id),
-    FOREIGN KEY (section_id) REFERENCES section(id)
+    PRIMARY KEY (id)
 );
 
 
