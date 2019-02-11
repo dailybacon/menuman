@@ -17,4 +17,8 @@ public class ApiException {
     public static class MenuNotFound extends RuntimeException {
     }
 
+    @ResponseStatus(value= HttpStatus.CONFLICT, reason = "That username already exists!")
+    public static class UsernameAlreadyExists extends RuntimeException {
+
+    }
 }

@@ -32,20 +32,44 @@ public class MenuService {
         return repo.deleteMenu(menuId);
     }
 
+    public Menu updateMenu(Integer menuId, Menu menu) {
+        Menu menuCheck = getMenu(menuId);
+        if (menuCheck == null) {
+            throw new ApiException.MenuNotFound();
+        }
+        return repo.updateMenu(menuId, menu);
+    }
+
     public Section addSection(Section section) {
         return repo.addSection(section);
+    }
+
+    public List<Section> getAllSections(){
+        return repo.getAllSections();
     }
 
     public Section getSection(Integer sectionId) {
         return repo.getSection(sectionId);
     }
 
+    public Section updateSection(Integer sectionId, Section section){
+        Section sectionCheck = getSection(sectionId);
+        if (sectionCheck == null) {
+            throw new ApiException.SectionNotFound();
+        }
+        return repo.updateSection(sectionId, section);
+    }
+
     public boolean deleteSection(Integer sectionId) {
-    return repo.deleteSection(sectionId);
+        return repo.deleteSection(sectionId);
     }
 
     public MenuItem addMenuItem(MenuItem menuItem){
         return repo.addMenuItem(menuItem);
+    }
+
+    public List<MenuItem> getAllMenuItems() {
+        return repo.getAllMenuItems();
     }
 
     public MenuItem getMenuItem(Integer menuItemId){
@@ -60,4 +84,7 @@ public class MenuService {
         return repo.updateMenuItem(menuItemId, menuItem);
     }
 
+    public boolean deleteMenuItem(Integer menuItemId){
+        return repo.deleteMenuItem(menuItemId);
+    }
 }

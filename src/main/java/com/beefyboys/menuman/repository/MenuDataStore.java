@@ -5,6 +5,7 @@ import com.beefyboys.menuman.models.MenuItem;
 import com.beefyboys.menuman.models.Section;
 import org.jooq.DSLContext;
 import org.jooq.code.tables.records.MenuItemRecord;
+import org.jooq.code.tables.records.MenuRecord;
 import org.jooq.code.tables.records.SectionRecord;
 import org.jooq.exception.DataAccessException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,17 @@ public class MenuDataStore {
                 .fetchOneInto(Menu.class);
     }
 
+    public Menu updateMenu(Integer menuId, Menu menu){
+        MenuRecord record = dataStore
+                .update(MENU)
+                .set(MENU.NAME, menu.getName())
+                .set(MENU.DESCRIPTION, menu.getDescription())
+                .where(MENU.ID.eq(menuId))
+                .returning().fetchOne();
+        menu.setId(menuId);
+        return menu;
+    }
+
     public boolean deleteMenu(Integer menuId) {
         return dataStore
                 .deleteFrom(MENU)
@@ -63,6 +75,12 @@ public class MenuDataStore {
         return section;
     }
 
+    public List<Section> getAllSections() {
+        return dataStore
+                .selectFrom(SECTION)
+                .fetchInto(Section.class);
+    }
+
     public Section getSection(Integer sectionId) {
         try {
             return dataStore
@@ -74,6 +92,17 @@ public class MenuDataStore {
             LOGGER.info(e.toString());
             throw e;
         }
+    }
+
+    public Section updateSection(Integer sectionId, Section section){
+        SectionRecord record = dataStore
+                .update(SECTION)
+                .set(SECTION.NAME, section.getName())
+                .set(SECTION.DESCRIPTION, section.getDescription())
+                .where(SECTION.ID.eq(sectionId))
+                .returning().fetchOne();
+        section.setId(sectionId);
+        return section;
     }
 
     public boolean deleteSection(Integer sectionId) {
@@ -92,6 +121,12 @@ public class MenuDataStore {
                 .returning(MENU_ITEM.ID).fetchOne();
         menuItem.setId((record.get(MENU_ITEM.ID)));
         return menuItem;
+    }
+
+    public List<MenuItem> getAllMenuItems() {
+        return dataStore
+                .selectFrom(MENU_ITEM)
+                .fetchInto(MenuItem.class);
     }
 
     public MenuItem getMenuItem(Integer menuItemId){
@@ -120,4 +155,10 @@ public class MenuDataStore {
         return menuItem;
     }
 
+    public boolean deleteMenuItem(Integer menuItemId){
+        return dataStore
+                .deleteFrom(MENU_ITEM)
+                .where(MENU_ITEM.ID.eq(menuItemId))
+                .execute() > 0;
+    }
 }

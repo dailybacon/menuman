@@ -31,6 +31,12 @@ public class MenuController {
         return menuService.getMenu(menuId);
     }
 
+    @PutMapping("/menu/{menuId}")
+    public Menu updateMenu(@PathVariable("menuId") int menuId,
+                           @RequestBody @Valid Menu menu) {
+        return menuService.updateMenu(menuId, menu);
+    }
+
     @DeleteMapping("/menu/{menuId}")
     public boolean deleteMenu(@PathVariable("menuId") int menuId){
         return menuService.deleteMenu(menuId);
@@ -41,10 +47,21 @@ public class MenuController {
         return menuService.addSection(section);
     }
 
+    @GetMapping("/section")
+    public List<Section> getAllSections() {
+    return menuService.getAllSections();}
+
     @GetMapping("/section/{sectionId}")
     public Section getSection(@PathVariable("sectionId") int sectionId){
         return menuService.getSection(sectionId);
     }
+
+    @PutMapping("/section/{sectionId}")
+    public Section updateSection(@PathVariable("sectionId") int sectionId,
+                                 @RequestBody @Valid Section section){
+        return menuService.updateSection(sectionId, section);
+    }
+
 
     @DeleteMapping("/section/{sectionId}")
     public boolean deleteSection(@PathVariable("sectionId") int sectionId){
@@ -56,6 +73,10 @@ public class MenuController {
         return menuService.addMenuItem(menuItem);
     }
 
+    @GetMapping("/menu-item/")
+    public List<MenuItem> getAllMenuItems(){
+        return menuService.getAllMenuItems();}
+
     @GetMapping("/menu-item/{menuItemId}")
     public MenuItem getMenuItem(@PathVariable("menuItemId") int menuItemId){
         return menuService.getMenuItem(menuItemId);
@@ -66,4 +87,10 @@ public class MenuController {
                                    @RequestBody @Valid MenuItem menuItem){
         return menuService.updateMenuItem(menuItemId, menuItem);
     }
+
+    @DeleteMapping("/menu-item/{menuItemId}")
+    public boolean deleteMenuItem(@PathVariable("menuItemId") int menuItemId){
+        return menuService.deleteMenuItem(menuItemId);
+    }
+
 }
