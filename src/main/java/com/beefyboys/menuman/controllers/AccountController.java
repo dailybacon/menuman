@@ -14,6 +14,13 @@ public class AccountController {
     private AccountService accountService;
 
     @PostMapping("/account")
-    public boolean addAccount(@RequestBody @Valid Account account) { return accountService.addAccount(account);}
+    public boolean addAccount(@RequestBody @Valid Account account){
+        return accountService.addAccount(account);
+    }
+
+    @GetMapping("/account/{accountName}")
+    public Account getAccount(@PathVariable("accountName") String accountName) {
+      return accountService.getAccount(accountName);
+    }
 
 }
