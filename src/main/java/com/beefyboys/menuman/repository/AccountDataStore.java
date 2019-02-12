@@ -31,10 +31,7 @@ public class AccountDataStore {
         boolean userNameExists = dataStore.fetchExists(dataStore.selectOne()
                     .from(ACCOUNT)
                     .where(ACCOUNT.USERNAME.eq(accountName)));
-            if (userNameExists) {
-                return true;
-            }
-            return false;
+        return userNameExists;
         }
 
     }
