@@ -2,6 +2,7 @@ package com.beefyboys.menuman.repository;
 
 import com.beefyboys.menuman.models.Account;
 import org.jooq.DSLContext;
+import org.jooq.code.tables.records.AccountRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -13,12 +14,15 @@ public class AccountDataStore {
     @Autowired
     private DSLContext dataStore;
 
-    public boolean addAccount(Account account){
-        return dataStore
+    public Account addAccount(Account account){
+        AccountRecord accountRecord = dataStore
                 .insertInto(ACCOUNT)
                 .set(ACCOUNT.USERNAME, account.getUsername())
                 .set(ACCOUNT.ADDRESS, account.getAddress())
-                .execute() > 0;
+                .set(ACCOUNT.PASSWORD_HASH, account.getPasswordHash())
+                .returning(ACCOUNT.ID).fetchOne();
+        account.setId(accountRecord.getId());
+        return account;
     }
 
     public Account getAccount(String accountName){
@@ -27,11 +31,12 @@ public class AccountDataStore {
                 .where(ACCOUNT.USERNAME.eq(accountName))
                 .fetchOneInto(Account.class);
     }
-        public boolean checkAccount(String accountName){
-        boolean userNameExists = dataStore.fetchExists(dataStore.selectOne()
-                    .from(ACCOUNT)
-                    .where(ACCOUNT.USERNAME.eq(accountName)));
-        return userNameExists;
-        }
 
+    public boolean checkAccount(String accountName){
+        boolean userNameExists = dataStore.fetchExists(dataStore.selectOne()
+            .from(ACCOUNT)
+            .where(ACCOUNT.USERNAME.eq(accountName)));
+        return userNameExists;
     }
+
+}

@@ -34,10 +34,14 @@ repositories {
 
 dependencies {
 	compile 'org.jooq:jooq'
+	compile 'javax.xml.bind:jaxb-api:2.3.0'
+	compile 'org.springframework.boot:spring-boot-starter-security'
+	compile 'javax.servlet:javax.servlet-api:3.1.0'
 	jooqRuntime  'com.h2database:h2:1.4.197'
 	runtime  'com.h2database:h2:1.4.197'
 	implementation 'org.springframework.boot:spring-boot-starter-jooq'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation 'com.auth0:java-jwt:3.7.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
 	testImplementation 'org.mockito:mockito-core:2.1.0'

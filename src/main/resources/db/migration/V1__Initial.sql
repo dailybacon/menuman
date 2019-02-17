@@ -25,6 +25,7 @@ CREATE TABLE account (
     id INT NOT NULL AUTO_INCREMENT,
     username VARCHAR(50) NOT NULL UNIQUE,
     address VARCHAR(500) NOT NULL,
+    password_hash VARCHAR(500) NOT NULL,
     PRIMARY KEY (id)
 );
 

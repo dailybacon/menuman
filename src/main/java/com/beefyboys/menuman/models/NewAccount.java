@@ -1,13 +1,9 @@
 package com.beefyboys.menuman.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-public class Account {
-
-    @NotNull
-    Integer id;
+public class NewAccount {
 
     @NotNull
     @NotEmpty
@@ -17,16 +13,9 @@ public class Account {
     @NotEmpty
     String address;
 
-    @JsonIgnore
-    String passwordHash;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    @NotNull
+    @NotEmpty
+    String password;
 
     public String getUsername() {
         return username;
@@ -44,11 +33,12 @@ public class Account {
         this.address = address;
     }
 
-    public String getPasswordHash() {
-        return passwordHash;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
+    public void setPassword(String password) {
+        this.password = password;
     }
+
 }
