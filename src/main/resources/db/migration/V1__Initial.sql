@@ -20,12 +20,14 @@ CREATE TABLE menu_item (
     PRIMARY KEY (id)
 );
 
+CREATE TYPE account_role AS ENUM ('ROLE_ADMIN', 'ROLE_USER');
 
 CREATE TABLE account (
     id INT NOT NULL AUTO_INCREMENT,
     username VARCHAR(50) NOT NULL UNIQUE,
     address VARCHAR(500) NOT NULL,
     password_hash VARCHAR(500) NOT NULL,
+    role account_role NOT NULL,
     PRIMARY KEY (id)
 );
 

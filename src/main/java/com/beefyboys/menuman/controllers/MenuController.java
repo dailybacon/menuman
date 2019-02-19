@@ -5,6 +5,7 @@ import com.beefyboys.menuman.models.MenuItem;
 import com.beefyboys.menuman.models.Section;
 import com.beefyboys.menuman.services.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -17,11 +18,13 @@ public class MenuController {
     private MenuService menuService;
 
     @PostMapping("/menu")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public boolean addMenu(@RequestBody @Valid Menu menu){
         return menuService.addMenu(menu);
     }
 
     @GetMapping("/menu")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public List<Menu> getAllMenus(){
         return menuService.getAllMenus();
     }

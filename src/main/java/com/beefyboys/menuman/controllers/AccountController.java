@@ -4,6 +4,7 @@ import com.beefyboys.menuman.models.Account;
 import com.beefyboys.menuman.models.NewAccount;
 import com.beefyboys.menuman.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -20,11 +21,10 @@ public class AccountController {
         return accountService.addAccount(account);
     }
 
-    @GetMapping("/account/{accountName}")
+    @GetMapping("/{accountName}")
+    @PreAuthorize("permitAll()")
     public Account getAccount(@PathVariable("accountName") String accountName) {
       return accountService.getAccount(accountName);
     }
-
-
 
 }
