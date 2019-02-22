@@ -1,6 +1,9 @@
 package com.beefyboys.menuman.security;
 
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
 import com.beefyboys.menuman.filters.JWTAuthorizationFilter;
+import com.beefyboys.menuman.services.TokenService;
 import com.beefyboys.menuman.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +20,10 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.context.annotation.Bean;
 
+import static com.auth0.jwt.JWT.require;
+import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
+import static com.beefyboys.menuman.security.SecurityConstants.SECRET;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -32,13 +39,10 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers("/auth/**").permitAll()
-                .antMatchers("/accounts/sign-up").permitAll()
-                .anyRequest().authenticated()
+        http.cors().and().csrf().disable()
+                .anonymous()
                 .and()
-                .addFilter(new JWTAuthorizationFilter(authenticationManager()))
-                // this disables session creation on Spring Security
+                .addFilter(new JWTAuthorizationFilter(authenticationManager(), new TokenService()))
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 

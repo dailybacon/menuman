@@ -22,9 +22,9 @@ public class AccountController {
     }
 
     @GetMapping("/{accountName}")
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasRole('ADMIN') or #accountName == authentication.name")
     public Account getAccount(@PathVariable("accountName") String accountName) {
-      return accountService.getAccount(accountName);
+        return accountService.getAccount(accountName);
     }
 
 }
