@@ -24,7 +24,6 @@ buildscript {
 		classpath 'com.h2database:h2:1.4.197'
 		classpath 'org.jooq:jooq-codegen:3.11.9'
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-		classpath 'org.yaml:snakeyaml:1.16'
 	}
 }
 
@@ -33,15 +32,16 @@ repositories {
 }
 
 dependencies {
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile("org.springframework.boot:spring-boot-starter-security")
+	compile 'org.springframework.boot:spring-boot-starter-jooq'
+	compile 'org.springframework.boot:spring-boot-starter-webflux'
+	compile("com.auth0:java-jwt:3.4.0")
+	compile('javax.xml.bind:jaxb-api:2.3.0')
 	compile 'org.jooq:jooq'
-	compile 'javax.xml.bind:jaxb-api:2.3.0'
-	compile 'org.springframework.boot:spring-boot-starter-security'
-	compile 'javax.servlet:javax.servlet-api:3.1.0'
 	jooqRuntime  'com.h2database:h2:1.4.197'
 	runtime  'com.h2database:h2:1.4.197'
-	implementation 'org.springframework.boot:spring-boot-starter-jooq'
-	implementation 'org.springframework.boot:spring-boot-starter-webflux'
-	implementation 'com.auth0:java-jwt:3.7.0'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
 	testImplementation 'org.mockito:mockito-core:2.1.0'

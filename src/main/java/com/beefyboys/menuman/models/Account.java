@@ -1,6 +1,7 @@
 package com.beefyboys.menuman.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -19,6 +20,10 @@ public class Account {
 
     @JsonIgnore
     String passwordHash;
+
+    @NotNull
+    @NotEmpty
+    AccountRole role;
 
     public Integer getId() {
         return id;
@@ -50,5 +55,13 @@ public class Account {
 
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
+    }
+
+    public AccountRole getRole() {
+        return role;
+    }
+
+    public void setRole(AccountRole role) {
+        this.role = role;
     }
 }

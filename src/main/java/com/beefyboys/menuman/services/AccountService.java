@@ -2,6 +2,7 @@ package com.beefyboys.menuman.services;
 
 import com.beefyboys.menuman.exceptions.ApiException;
 import com.beefyboys.menuman.models.Account;
+import com.beefyboys.menuman.models.AccountRole;
 import com.beefyboys.menuman.models.NewAccount;
 import com.beefyboys.menuman.repository.AccountDataStore;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ public class AccountService {
         account.setUsername(newAccount.getUsername());
         account.setAddress(newAccount.getAddress());
         account.setPasswordHash(passwordEncoder.encode(newAccount.getPassword()));
+        account.setRole(AccountRole.ROLE_USER);
         return account;
     }
 

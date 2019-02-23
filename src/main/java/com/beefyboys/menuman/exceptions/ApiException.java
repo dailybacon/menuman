@@ -19,6 +19,6 @@ public class ApiException {
 
     @ResponseStatus(value= HttpStatus.CONFLICT, reason = "That username already exists!")
     public static class UsernameAlreadyExists extends RuntimeException {
-
     }
+
 }

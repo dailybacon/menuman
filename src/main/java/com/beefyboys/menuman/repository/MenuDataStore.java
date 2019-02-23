@@ -100,8 +100,8 @@ public class MenuDataStore {
                 .set(SECTION.NAME, section.getName())
                 .set(SECTION.DESCRIPTION, section.getDescription())
                 .where(SECTION.ID.eq(sectionId))
-                .returning().fetchOne();
-        section.setId(sectionId);
+                .returning(SECTION.ID).fetchOne();
+        section.setId(record.getId());
         return section;
     }
 
@@ -119,7 +119,7 @@ public class MenuDataStore {
                 .set(MENU_ITEM.DESCRIPTION, menuItem.getDescription())
                 .set(MENU_ITEM.COST, menuItem.getCost())
                 .returning(MENU_ITEM.ID).fetchOne();
-        menuItem.setId((record.get(MENU_ITEM.ID)));
+        menuItem.setId(record.get(MENU_ITEM.ID));
         return menuItem;
     }
 
@@ -150,7 +150,7 @@ public class MenuDataStore {
                 .set(MENU_ITEM.DESCRIPTION, menuItem.getDescription())
                 .set(MENU_ITEM.COST, menuItem.getCost())
                 .where(MENU_ITEM.ID.eq(menuItemId))
-                .returning().fetchOne();
+                .returning(MENU_ITEM.ID).fetchOne();
         menuItem.setId(menuItemId);
         return menuItem;
     }
