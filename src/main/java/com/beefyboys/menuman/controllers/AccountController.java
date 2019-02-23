@@ -27,4 +27,10 @@ public class AccountController {
         return accountService.getAccount(accountName);
     }
 
+    @DeleteMapping("/{accountName}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or #accountName == authentication.name")
+    public boolean deleteAccount(@PathVariable("accountName") String accountName) {
+        return accountService.deleteAccount(accountName);
+    }
+
 }

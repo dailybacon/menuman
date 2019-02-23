@@ -40,4 +40,11 @@ public class AccountDataStore {
         return userNameExists;
     }
 
+    public boolean deleteAccount(String accountName){
+        return dataStore
+                .deleteFrom(ACCOUNT)
+                .where(ACCOUNT.USERNAME.eq(accountName))
+                .execute() > 0;
+    }
+
 }

@@ -40,5 +40,9 @@ public class AccountService {
         return repo.getAccount(accountName);
     }
 
+    public boolean deleteAccount(String accountName) {
+        if (repo.deleteAccount(accountName)) return true;
+        throw new ApiException.UserNameNotFound();
+    }
 
 }

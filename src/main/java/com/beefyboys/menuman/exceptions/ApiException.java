@@ -21,4 +21,8 @@ public class ApiException {
     public static class UsernameAlreadyExists extends RuntimeException {
     }
 
+    @ResponseStatus(value= HttpStatus.NOT_FOUND, reason = "Account not found!")
+    public static class UserNameNotFound extends RuntimeException {
+    }
+
 }
