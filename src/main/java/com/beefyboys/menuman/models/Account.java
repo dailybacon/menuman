@@ -1,7 +1,5 @@
 package com.beefyboys.menuman.models;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 

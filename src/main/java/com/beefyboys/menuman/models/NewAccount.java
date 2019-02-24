@@ -2,11 +2,14 @@ package com.beefyboys.menuman.models;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 public class NewAccount {
 
     @NotNull
     @NotEmpty
+    @Pattern(regexp = "^[a-zA-Z][a-zA-Z_]+[a-zA-Z]$",
+             message = "Username should fit pattern <letter><letters-and-underscores><letter>")
     String username;
 
     @NotNull
@@ -15,6 +18,8 @@ public class NewAccount {
 
     @NotNull
     @NotEmpty
+    @Pattern(regexp = "[^ ]{8,64}",
+             message = "Password should be between 8-64 characters (spaces not allowed)")
     String password;
 
     public String getUsername() {

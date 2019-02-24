@@ -1,6 +1,7 @@
 package com.beefyboys.menuman.controllers;
 
 import com.beefyboys.menuman.models.AuthenticationRequest;
+import com.beefyboys.menuman.models.JwtResponse;
 import com.beefyboys.menuman.services.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 public class AuthController {
 
     @Autowired
@@ -23,7 +24,7 @@ public class AuthController {
     private TokenService tokenService;
 
     @PostMapping("/login")
-    public String createAuthenticationToken(@RequestBody @Valid AuthenticationRequest authenticationRequest) {
+    public JwtResponse createAuthenticationToken(@RequestBody @Valid AuthenticationRequest authenticationRequest) {
 
         // Perform the security
         final Authentication authentication = authenticationManager.authenticate(
@@ -34,7 +35,7 @@ public class AuthController {
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return tokenService.generateToken((User) authentication.getPrincipal());
+        return new JwtResponse(tokenService.generateToken((User) authentication.getPrincipal()));
     }
 
 }
