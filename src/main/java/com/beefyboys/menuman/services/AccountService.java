@@ -20,7 +20,7 @@ public class AccountService {
 
     public Account addAccount(NewAccount account, boolean isAdmin) {
         String accountCheck = account.getUsername();
-        if (repo.checkAccount(accountCheck) == true) {
+        if (repo.isExistingAccount(accountCheck) == true) {
             throw new ApiException.UsernameAlreadyExists();
         }
         return repo.addAccount(prepareNewAccount(account, isAdmin));

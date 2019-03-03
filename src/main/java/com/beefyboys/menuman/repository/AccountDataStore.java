@@ -33,11 +33,8 @@ public class AccountDataStore {
                 .fetchOneInto(Account.class);
     }
 
-    public boolean checkAccount(String accountName){
-        boolean userNameExists = dataStore.fetchExists(dataStore.selectOne()
-            .from(ACCOUNT)
-            .where(ACCOUNT.USERNAME.eq(accountName)));
-        return userNameExists;
+    public boolean isExistingAccount(String accountName){
+        return getAccount(accountName) != null;
     }
 
     public boolean deleteAccount(String accountName){
