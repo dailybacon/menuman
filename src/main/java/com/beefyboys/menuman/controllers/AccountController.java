@@ -18,9 +18,18 @@ public class AccountController {
     @Autowired
     private AccountService accountService;
 
+    @GetMapping("/init")
+    public ResponseEntity<Account> init(){
+        NewAccount newAccount = new NewAccount();
+        newAccount.setUsername("administrator");
+        newAccount.setPassword("administrator");
+        newAccount.setAddress("100 Admin Ave");
+        return created(accountService.addAccount(newAccount, true));
+    }
+
     @PostMapping("/sign-up")
     public ResponseEntity<Account> signUp(@RequestBody @Valid NewAccount account){
-        return created(accountService.addAccount(account));
+        return created(accountService.addAccount(account, false));
     }
 
     @GetMapping("/{accountName}")

@@ -18,21 +18,21 @@ public class AccountService {
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
 
-    public Account addAccount(NewAccount account) {
+    public Account addAccount(NewAccount account, boolean isAdmin) {
         String accountCheck = account.getUsername();
         if (repo.checkAccount(accountCheck) == true) {
             throw new ApiException.UsernameAlreadyExists();
         }
-        return repo.addAccount(prepareNewAccount(account));
+        return repo.addAccount(prepareNewAccount(account, isAdmin));
 
     }
 
-    private Account prepareNewAccount(NewAccount newAccount) {
+    private Account prepareNewAccount(NewAccount newAccount, boolean isAdmin) {
         Account account = new Account();
         account.setUsername(newAccount.getUsername());
         account.setAddress(newAccount.getAddress());
         account.setPasswordHash(passwordEncoder.encode(newAccount.getPassword()));
-        account.setRole(AccountRole.ROLE_USER);
+        account.setRole(isAdmin ? AccountRole.ROLE_ADMIN : AccountRole.ROLE_USER);
         return account;
     }
 
