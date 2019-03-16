@@ -20,7 +20,7 @@ public class MenuController {
 
     @PostMapping("/menu")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public boolean addMenu(@RequestBody @Valid Menu menu){
+    public Menu addMenu(@RequestBody @Valid Menu menu){
         return menuService.addMenu(menu);
     }
 

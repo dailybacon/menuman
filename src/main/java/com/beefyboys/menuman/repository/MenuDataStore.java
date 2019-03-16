@@ -26,12 +26,14 @@ public class MenuDataStore {
 
     private static Logger LOGGER = Logger.getLogger(MenuDataStore.class.toString());
 
-    public boolean addMenu(Menu menu) {
-        return dataStore
+    public Menu addMenu(Menu menu) {
+        MenuRecord record = dataStore
                 .insertInto(MENU)
                 .set(MENU.NAME, menu.getName())
                 .set(MENU.DESCRIPTION, menu.getDescription())
-                .execute() > 0;
+                .returning(MENU.ID).fetchOne();
+        menu.setId(record.get(MENU.ID));
+        return menu;
     }
 
     public List<Menu> getAllMenus() {

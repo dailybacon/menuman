@@ -16,7 +16,7 @@ public class MenuService {
     @Autowired
     MenuDataStore repo;
 
-    public boolean addMenu(Menu menu) {
+    public Menu addMenu(Menu menu) {
         return repo.addMenu(menu);
     }
 
