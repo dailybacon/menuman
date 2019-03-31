@@ -1,4 +1,4 @@
-package com.beefyboys.menuman;
+package com.beefyboys.menuman.services;
 
 import com.beefyboys.menuman.exceptions.ApiException;
 import com.beefyboys.menuman.models.MenuItem;
@@ -19,7 +19,7 @@ import static org.mockito.BDDMockito.given;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class MenumanApplicationTests {
+public class MenuServiceTests {
 
 	@Mock
 	private MenuDataStore mockDatastore;
@@ -38,6 +38,11 @@ public class MenumanApplicationTests {
 	public void shouldThrowExceptionWhenUpdatingMenuItemThatDoesNotExist() {
 		given(mockDatastore.getMenuItem(any())).willReturn(null);
 		menuService.updateMenuItem(1, new MenuItem());
+	}
+
+	@Test
+	public void failingTest() {
+		assertThat(true, is(false));
 	}
 
 }
