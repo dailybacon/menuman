@@ -28,6 +28,10 @@ public class MenuService {
         return repo.getMenu(menuId);
     }
 
+    public Menu getFullMenu(int menuId) {
+        return repo.getFullMenu(menuId);
+    }
+
     public boolean deleteMenu(Integer menuId) {
         return repo.deleteMenu(menuId);
     }
@@ -86,5 +90,13 @@ public class MenuService {
 
     public boolean deleteMenuItem(Integer menuItemId){
         return repo.deleteMenuItem(menuItemId);
+    }
+
+    public boolean addMenuSection(int menuId, Section section) {
+        return repo.addMenuSection(menuId, section);
+    }
+
+    public boolean addMenuSectionMenuItem(int sectionId, MenuItem menuItem) {
+        return repo.addMenuSectionMenuItem(sectionId, menuItem);
     }
 }

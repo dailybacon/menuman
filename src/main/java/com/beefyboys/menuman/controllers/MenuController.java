@@ -47,6 +47,11 @@ public class MenuController {
         return menuService.deleteMenu(menuId);
     }
 
+    @GetMapping("/menu/{menuId}/full")
+    public Menu getFullMenu(@PathVariable("menuId") int menuId) {
+        return menuService.getFullMenu(menuId);
+    }
+
     @PostMapping("/section")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Section addSection(@RequestBody @Valid Section section){
@@ -102,5 +107,18 @@ public class MenuController {
     public boolean deleteMenuItem(@PathVariable("menuItemId") int menuItemId){
         return menuService.deleteMenuItem(menuItemId);
     }
+
+    @PostMapping("/menu/{menuId}/section")
+    public boolean addMenuSection(@PathVariable("menuId") int menuId,
+                                  @RequestBody @Valid Section section){
+        return menuService.addMenuSection(menuId, section);
+    }
+
+    @PostMapping("/section/{sectionId}/menu-item")
+    public boolean addMenuSectionMenuItem(@PathVariable("sectionId") int sectionId,
+                                          @RequestBody @Valid MenuItem menuItem){
+        return menuService.addMenuSectionMenuItem(sectionId, menuItem);
+    }
+
 
 }

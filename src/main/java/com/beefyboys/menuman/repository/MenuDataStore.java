@@ -7,17 +7,16 @@ import org.jooq.DSLContext;
 import org.jooq.code.tables.records.MenuItemRecord;
 import org.jooq.code.tables.records.MenuRecord;
 import org.jooq.code.tables.records.SectionRecord;
+
 import org.jooq.exception.DataAccessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
-import static org.jooq.code.Tables.MENU_ITEM;
-import static org.jooq.code.Tables.SECTION;
-import static org.jooq.code.tables.Menu.MENU;
-
+import static org.jooq.code.Tables.*;
 @Repository
 public class MenuDataStore {
 
@@ -60,6 +59,40 @@ public class MenuDataStore {
         return menu;
     }
 
+
+    public Menu getFullMenu(int menuId) {
+        Menu menu = getMenu(menuId);
+        List<Section> sections = getMenuSections(menuId)
+                .stream()
+                .map(this::addMenuItemsToSection)
+                .collect(Collectors.toList());
+        menu.setSections(sections);
+        return menu;
+
+
+    }
+
+    private List<Section> getMenuSections(int menuId) {
+        return dataStore.select()
+                .from(MENU_SECTIONS)
+                .join(SECTION)
+                .on(MENU_SECTIONS.SECTION_ID.eq(SECTION.ID))
+                .where(MENU_SECTIONS.MENU_ID.eq(menuId))
+                .fetchInto(Section.class);
+    }
+
+
+    private Section addMenuItemsToSection(Section section) {
+        List<MenuItem> items = dataStore.select()
+                .from(SECTION_ITEMS)
+                .join(MENU_ITEM)
+                .on(SECTION_ITEMS.ITEM_ID.eq(MENU_ITEM.ID))
+                .where(SECTION_ITEMS.SECTION_ID.eq(section.getId()))
+                .fetchInto(MenuItem.class);
+        section.setItems(items);
+        return section;
+    }
+
     public boolean deleteMenu(Integer menuId) {
         return dataStore
                 .deleteFrom(MENU)
@@ -76,6 +109,8 @@ public class MenuDataStore {
         section.setId(record.get(SECTION.ID));
         return section;
     }
+
+
 
     public List<Section> getAllSections() {
         return dataStore
@@ -163,4 +198,23 @@ public class MenuDataStore {
                 .where(MENU_ITEM.ID.eq(menuItemId))
                 .execute() > 0;
     }
+
+    public boolean addMenuSection(int menuId, Section section) {
+        Section addedSection = addSection(section);
+
+        return dataStore.insertInto(MENU_SECTIONS)
+                .set(MENU_SECTIONS.MENU_ID, menuId)
+                .set(MENU_SECTIONS.SECTION_ID, addedSection.getId())
+                .execute() > 0;
+    }
+
+    public boolean addMenuSectionMenuItem(int sectionId, MenuItem menuItem) {
+        MenuItem addedMenuItem = addMenuItem(menuItem);
+
+        return dataStore.insertInto(SECTION_ITEMS)
+                .set(SECTION_ITEMS.SECTION_ID, sectionId)
+                .set(SECTION_ITEMS.ITEM_ID, addedMenuItem.getId())
+                .execute() > 0;
+    }
+
 }

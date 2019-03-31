@@ -12,12 +12,26 @@ CREATE TABLE section (
     PRIMARY KEY (id)
 );
 
+CREATE TABLE menu_sections (
+    menu_id INT NOT NULL,
+    section_id INT NOT NULL,
+    FOREIGN KEY (menu_id) REFERENCES menu(id),
+    FOREIGN KEY (section_id) REFERENCES section(id)
+);
+
 CREATE TABLE menu_item (
     id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
     description VARCHAR(500) NOT NULL,
     cost DECIMAL(10, 2) NOT NULL,
     PRIMARY KEY (id)
+);
+
+CREATE TABLE section_items (
+    section_id INT NOT NULL,
+    item_id INT NOT NULL,
+    FOREIGN KEY (section_id) REFERENCES section(id),
+    FOREIGN KEY (item_id) REFERENCES menu_item(id)
 );
 
 CREATE TYPE account_role AS ENUM ('ROLE_ADMIN', 'ROLE_USER');

@@ -21,7 +21,7 @@ public class AccountController {
     @GetMapping("/init")
     public ResponseEntity<Account> init(){
         NewAccount newAccount = new NewAccount();
-        newAccount.setUsername("administrator");
+            newAccount.setUsername("administrator");
         newAccount.setPassword("administrator");
         newAccount.setAddress("100 Admin Ave");
         return created(accountService.addAccount(newAccount, true));
