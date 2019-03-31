@@ -24,7 +24,7 @@ public class MenuService {
         return repo.getAllMenus();
     }
 
-    public Menu getMenu(Integer menuId) {
+    public Menu getMenu(int menuId) {
         return repo.getMenu(menuId);
     }
 
@@ -32,11 +32,11 @@ public class MenuService {
         return repo.getFullMenu(menuId);
     }
 
-    public boolean deleteMenu(Integer menuId) {
+    public boolean deleteMenu(int menuId) {
         return repo.deleteMenu(menuId);
     }
 
-    public Menu updateMenu(Integer menuId, Menu menu) {
+    public Menu updateMenu(int menuId, Menu menu) {
         Menu menuCheck = getMenu(menuId);
         if (menuCheck == null) {
             throw new ApiException.MenuNotFound();
@@ -52,11 +52,11 @@ public class MenuService {
         return repo.getAllSections();
     }
 
-    public Section getSection(Integer sectionId) {
+    public Section getSection(int sectionId) {
         return repo.getSection(sectionId);
     }
 
-    public Section updateSection(Integer sectionId, Section section){
+    public Section updateSection(int sectionId, Section section){
         Section sectionCheck = getSection(sectionId);
         if (sectionCheck == null) {
             throw new ApiException.SectionNotFound();
@@ -64,7 +64,7 @@ public class MenuService {
         return repo.updateSection(sectionId, section);
     }
 
-    public boolean deleteSection(Integer sectionId) {
+    public boolean deleteSection(int sectionId) {
         return repo.deleteSection(sectionId);
     }
 
@@ -76,11 +76,11 @@ public class MenuService {
         return repo.getAllMenuItems();
     }
 
-    public MenuItem getMenuItem(Integer menuItemId){
+    public MenuItem getMenuItem(int menuItemId){
         return repo.getMenuItem(menuItemId);
     }
 
-    public MenuItem updateMenuItem(Integer menuItemId, MenuItem menuItem){
+    public MenuItem updateMenuItem(int menuItemId, MenuItem menuItem){
         MenuItem menuItemCheck = getMenuItem(menuItemId);
         if (menuItemCheck == null) {
            throw new ApiException.MenuItemNotFound();
@@ -88,7 +88,7 @@ public class MenuService {
         return repo.updateMenuItem(menuItemId, menuItem);
     }
 
-    public boolean deleteMenuItem(Integer menuItemId){
+    public boolean deleteMenuItem(int menuItemId){
         return repo.deleteMenuItem(menuItemId);
     }
 

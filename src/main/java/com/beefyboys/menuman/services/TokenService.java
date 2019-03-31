@@ -18,8 +18,8 @@ import static com.beefyboys.menuman.security.SecurityConstants.*;
 @Service
 public class TokenService {
 
-    private static Algorithm JWT_ALGORITHM = HMAC512(SECRET.getBytes());
-    private static JWTVerifier JWT_VERIFIER = require(JWT_ALGORITHM).build();
+    private final Algorithm JWT_ALGORITHM = HMAC512(SECRET.getBytes());
+    private final JWTVerifier JWT_VERIFIER = require(JWT_ALGORITHM).build();
 
     public String generateToken(User user) {
         String role = user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining());
